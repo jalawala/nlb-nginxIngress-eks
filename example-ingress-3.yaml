@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress3
+  annotations:
+#    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - anthonycornell.com
+    secretName: tls-secret
+  rules:
+  - host: anthonycornell.com
+    http:
+      paths:
+        - path: /apple1
+          backend:
+            serviceName: apple1-service
+            servicePort: 5678
+        - path: /banana1
+          backend:
+            serviceName: banana1-service
+            servicePort: 5678
